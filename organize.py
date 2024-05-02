@@ -17,7 +17,7 @@ def extract_folder_name(filename):
             print(f"Invalid direction in filename: {filename}")
             return None
 
-        # Folder Name Structure group 10-1 in SE and 0-9 in NE
+        # Adjust the sign for the first part of the folder name for southern hemisphere coordinates
         if lat_sign == "-":
             base_folder_lat = ((lat_val // 10) + 1) * 10
         else:
@@ -28,7 +28,11 @@ def extract_folder_name(filename):
         else:
             base_folder_lon = (lon_val // 10) * 10
 
-        lat_folder = f"{lat_sign}{str(base_folder_lat)}"
+        # If tile W180 do not create -190 folder
+        if base_folder_lon >= 180:
+             base_folder_lon = 180
+
+        lat_folder = f"{lat_sign}{str(base_folder_lat).zfill(2)}"
         lon_folder = f"{lon_sign}{str(base_folder_lon).zfill(3)}"
 
         return f"{lat_folder}{lon_folder}"
