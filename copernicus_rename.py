@@ -11,7 +11,7 @@ def rename_files():
     
     for file in files:
         # Check if the file is a TIFF image
-        if file.endswith('.tif') or file.endswith('.tiff'):
+        if (file.endswith('.tif') or file.endswith('.tiff')) and not file.endswith('.zip'):
             print(f'Found TIFF image: {file}')
             
             # Extract coordinates from the file name
